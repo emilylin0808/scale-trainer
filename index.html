@@ -1,11 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scale Trainer</title>
 </head>
-<body>
 
+<body>
+    <h1>Scale Trainer</h1>
+    <p>Welcome to the Scale Trainer! This tool will help you practice and learn musical scales while also testing speed.</p>
+
+    <h2>Select a Scale</h2>
+    <select id="scaleSelect">
+        <option value="C Major">C Major</option>
+        <option value="G Major">G Major</option>
+        <option value="D Major">D Major</option>
+        <option value="A Minor">A Minor</option>
+        <option value="E Minor">E Minor</option>
+    </select>
+
+    <button id="startButton">Start Practice</button>
+
+    <div id="scaleDisplay"></div>
+
+    <script src="script.js"></script>
 </body>
 </html>
