@@ -7,5 +7,6 @@ console.log("Scale Trainer loaded"); // Debugging statement to make sure JavaScr
 startButton.addEventListener('click', function() {
     //console.log("Start button clicked"); // Debugging statement to make sure the button click is being detected
     const selectedScale = scaleSelect.value;
-    console.log(selectedScale);
+    //console.log(selectedScale); // Making sure the selected scale is being logged correctly
+    scaleDisplay.innerHTML = "Now practicing: " + selectedScale;
 });
