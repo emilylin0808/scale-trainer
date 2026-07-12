@@ -3,6 +3,16 @@ const startButton = document.getElementById('startButton');
 const scaleDisplay = document.getElementById('scaleDisplay');
 
 console.log("Scale Trainer loaded"); // Debugging statement to make sure JavaScript is connected to the HTML file
+const scales = {
+    "C Major": ["C", "D", "E", "F", "G", "A", "B", "C"],
+    "D Major": ["D", "E", "F#", "G", "A", "B", "C#", "D"],
+    "E Major": ["E", "F#", "G#", "A", "B", "C#", "D#", "E"],
+    "F Major": ["F", "G", "A", "Bb", "C", "D", "E", "F"],
+    "G Major": ["G", "A", "B", "C", "D", "E", "F#", "G"],
+    "A Major": ["A", "B", "C#", "D", "E", "F#", "G#", "A"],
+    "B Major": ["B", "C#", "D#", "E", "F#", "G#", "A#", "B"]
+};
+console.log(scales["D Major"]);
 
 startButton.addEventListener('click', function() {
     //console.log("Start button clicked"); // Debugging statement to make sure the button click is being detected
