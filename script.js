@@ -16,6 +16,10 @@ const scales = {
 };
 console.log(scales["C Major"]); // Making sure the scales object is being logged correctly
 
+let practicing = false;
+let seconds = 0;
+let timer;
+
 startButton.addEventListener('click', function() {
     //console.log("Start button clicked"); // Debugging statement to make sure the button click is being detected
     const selectedScale = scaleSelect.value;
