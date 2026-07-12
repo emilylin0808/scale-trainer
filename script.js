@@ -1,6 +1,8 @@
 const scaleSelect = document.getElementById('scaleSelect');
 const startButton = document.getElementById('startButton');
 const scaleDisplay = document.getElementById('scaleDisplay');
+const statusDisplay = document.getElementById('status');
+const timerDisplay = document.getElementById('timer');
 
 console.log("Scale Trainer loaded"); // Debugging statement to make sure JavaScript is connected to the HTML file
 const scales = {
