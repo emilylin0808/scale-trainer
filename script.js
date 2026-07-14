@@ -27,3 +27,16 @@ startButton.addEventListener('click', function() {
     //console.log(selectedScale); // Making sure the selected scale is being logged correctly
     scaleDisplay.innerHTML = "Now practicing: " + selectedScale + "<br>Notes: " + notes.join(" ");
 });
+
+function startPractice() {
+    practicing = true;
+    startButton.innerHTML = "Stop Practice";
+    status.innerHTML = "Practice in progress...";
+    seconds = 0;
+    timer = setInterval(updateTimer, 1000);
+}
+
+function updateTimer() {
+    seconds++;
+    timerDisplay.innerHTML = "Time: " + seconds + "s";
+}
