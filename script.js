@@ -36,7 +36,14 @@ function startPractice() {
     timer = setInterval(updateTimer, 1000);
 }
 
-function updateTimer() {
+function updateTimer() { // Updates the timer display every second
     seconds++;
     timerDisplay.innerHTML = "Time: " + seconds + "s";
+}
+
+function stopPractice() {
+    practicing = false;
+    startButton.innerHTML = "Start Practice";
+    status.innerHTML = "Practice finished.";
+    clearInterval(timer);
 }
