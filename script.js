@@ -19,10 +19,11 @@ console.log(scales["C Major"]); // Making sure the scales object is being logged
 let practicing = false;
 let seconds = 0;
 let timer;
+let currentScale = scaleSelect.value;
 
 startButton.addEventListener('click', function() { // Starts or stops the practice session when the button is clicked
     //console.log("Start button clicked"); // Debugging statement to make sure the button click is being detected
-    let currentScale = scaleSelect.value;
+    currentScale = scaleSelect.value;
     const notes = scales[currentScale];
     //console.log(currentScale); // Making sure the selected scale is being logged correctly
     if (!practicing) {
@@ -55,7 +56,7 @@ function stopPractice() {
 }
 
 function updateScaleDisplay() { // Updates the scale display based on the selected scale
-    let currentScale = scaleSelect.value;
+    currentScale = scaleSelect.value;
     const notes = scales[currentScale];
     scaleDisplay.innerHTML = " <strong>" + currentScale + "</strong><br>Notes: " + notes.join(" ");
 }
