@@ -22,9 +22,9 @@ let timer;
 
 startButton.addEventListener('click', function() { // Starts or stops the practice session when the button is clicked
     //console.log("Start button clicked"); // Debugging statement to make sure the button click is being detected
-    const selectedScale = scaleSelect.value;
-    const notes = scales[selectedScale];
-    //console.log(selectedScale); // Making sure the selected scale is being logged correctly
+    let currentScale = scaleSelect.value;
+    const notes = scales[currentScale];
+    //console.log(currentScale); // Making sure the selected scale is being logged correctly
     if (!practicing) {
         startPractice();
     } else {
@@ -55,9 +55,9 @@ function stopPractice() {
 }
 
 function updateScaleDisplay() { // Updates the scale display based on the selected scale
-    const selectedScale = scaleSelect.value;
-    const notes = scales[selectedScale];
-    scaleDisplay.innerHTML = " <strong>" + selectedScale + "</strong><br>Notes: " + notes.join(" ");
+    let currentScale = scaleSelect.value;
+    const notes = scales[currentScale];
+    scaleDisplay.innerHTML = " <strong>" + currentScale + "</strong><br>Notes: " + notes.join(" ");
 }
 
 updateScaleDisplay(); // Initial call to display the default scale when the page loads
