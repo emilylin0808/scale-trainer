@@ -26,6 +26,11 @@ startButton.addEventListener('click', function() {
     const notes = scales[selectedScale];
     //console.log(selectedScale); // Making sure the selected scale is being logged correctly
     scaleDisplay.innerHTML = "Now practicing: " + selectedScale + "<br>Notes: " + notes.join(" ");
+    if (!practicing) {
+        startPractice();
+    } else {
+        stopPractice();
+    }
 });
 
 function startPractice() {
