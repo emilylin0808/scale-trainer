@@ -20,7 +20,7 @@ let practicing = false;
 let seconds = 0;
 let timer;
 
-startButton.addEventListener('click', function() {
+startButton.addEventListener('click', function() { // Starts or stops the practice session when the button is clicked
     //console.log("Start button clicked"); // Debugging statement to make sure the button click is being detected
     const selectedScale = scaleSelect.value;
     const notes = scales[selectedScale];
@@ -33,6 +33,13 @@ startButton.addEventListener('click', function() {
     }
 });
 
+scaleSelect.addEventListener("change", function() { // Updates the scale display when a new scale is selected
+    const selectedScale = scaleSelect.value;
+    const notes = scales[selectedScale];
+    scaleDisplay.innerHTML = "Selected scale: " + selectedScale + "<br>Notes: " + notes.join(" ");
+});
+
+// ----------------------------------------------Functions------------------------------------------------------------------
 function startPractice() {
     practicing = true;
     startButton.innerHTML = "Stop Practice";
