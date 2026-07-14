@@ -25,7 +25,6 @@ startButton.addEventListener('click', function() { // Starts or stops the practi
     const selectedScale = scaleSelect.value;
     const notes = scales[selectedScale];
     //console.log(selectedScale); // Making sure the selected scale is being logged correctly
-    scaleDisplay.innerHTML = "Now practicing: " + selectedScale + "<br>Notes: " + notes.join(" ");
     if (!practicing) {
         startPractice();
     } else {
@@ -33,12 +32,7 @@ startButton.addEventListener('click', function() { // Starts or stops the practi
     }
 });
 
-scaleSelect.addEventListener("change", function() { // Updates the scale display when a new scale is selected
-    const selectedScale = scaleSelect.value;
-    const notes = scales[selectedScale];
-    scaleDisplay.innerHTML = "Selected scale: " + selectedScale + "<br>Notes: " + notes.join(" ");
-});
-
+scaleSelect.addEventListener("change", updateScaleDisplay); // Updates the scale display when a new scale is selected
 // ----------------------------------------------Functions------------------------------------------------------------------
 function startPractice() {
     practicing = true;
@@ -59,3 +53,11 @@ function stopPractice() {
     status.innerHTML = "Practice finished.";
     clearInterval(timer);
 }
+
+function updateScaleDisplay() { // Updates the scale display based on the selected scale
+    const selectedScale = scaleSelect.value;
+    const notes = scales[selectedScale];
+    scaleDisplay.innerHTML = " <strong>" + selectedScale + "</strong><br>Notes: " + notes.join(" ");
+}
+
+updateScaleDisplay(); // Initial call to display the default scale when the page loads
