@@ -22,7 +22,7 @@ let seconds = 0;
 let timer;
 let currentScale = scaleSelect.value;
 let practiceHistory = []; // Array to store previous practice data
-
+let microphoneStream = null; // Variable to hold the microphone stream
 // ----------------------------------------------Event Listeners------------------------------------------------------------------
 startButton.addEventListener('click', function() { // Starts or stops the practice session when the button is clicked
     //console.log("Start button clicked"); // Debugging statement to make sure the button click is being detected
@@ -70,7 +70,7 @@ function updateScaleDisplay() { // Updates the scale display based on the select
 
 async function requestMicrophone() { // Requests microphone access from the user and waits until the user grants or denies access
     try {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        microphoneStream = await navigator.mediaDevices.getUserMedia({ audio: true });
         console.log("Microphone access granted");
         // You can now use the stream for audio processing
     } catch (err) {
