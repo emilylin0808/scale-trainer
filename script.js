@@ -41,6 +41,7 @@ scaleSelect.addEventListener("change", updateScaleDisplay); // Updates the scale
 // ----------------------------------------------Functions------------------------------------------------------------------
 function startPractice() {
     practicing = true;
+    requestMicrophone(); // gets microphone access from the user when they start practice
     startButton.innerHTML = "Stop Practice";
     status.innerHTML = "Practice in progress...";
     seconds = 0;
@@ -68,7 +69,13 @@ function updateScaleDisplay() { // Updates the scale display based on the select
 }
 
 async function requestMicrophone() { // Requests microphone access from the user and waits until the user grants or denies access
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    console.log(stream); // Log the stream to make sure the microphone access is working
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        console.log("Microphone access granted");
+        // You can now use the stream for audio processing
+    } catch (err) {
+        console.error("Microphone access denied", err);
+        alert("Microphone access is required to practice. Please allow microphone access.");
+    }
 }
 updateScaleDisplay(); // Initial call to display the default scale when the page loads
