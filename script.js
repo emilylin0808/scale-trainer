@@ -23,6 +23,8 @@ let timer;
 let currentScale = scaleSelect.value;
 let practiceHistory = []; // Array to store previous practice data
 let microphoneStream = null; // Variable to hold the microphone stream
+let audioContext = null; // Variable to hold the AudioContext
+let analyser = null; // Variable to hold the AnalyserNode
 // ----------------------------------------------Event Listeners------------------------------------------------------------------
 startButton.addEventListener('click', function() { // Starts or stops the practice session when the button is clicked
     //console.log("Start button clicked"); // Debugging statement to make sure the button click is being detected
