@@ -1,7 +1,7 @@
 const scaleSelect = document.getElementById('scaleSelect');
 const startButton = document.getElementById('startButton');
 const scaleDisplay = document.getElementById('scaleDisplay');
-const statusDisplay = document.getElementById('status');
+const status = document.getElementById('status');
 const timerDisplay = document.getElementById('timer');
 const soundLevel = document.getElementById('soundLevel');
 
@@ -30,7 +30,7 @@ let analyser = null; // Variable to hold the AnalyserNode
 startButton.addEventListener('click', function() { // Starts or stops the practice session when the button is clicked
     //console.log("Start button clicked"); // Debugging statement to make sure the button click is being detected
     currentScale = scaleSelect.value;
-    const notes = scales[currentScale];
+
     //console.log(currentScale); // Making sure the selected scale is being logged correctly
     if (!practicing) {
         startPractice();
@@ -59,7 +59,7 @@ function updateTimer() { // Updates the timer display every second
 function stopPractice() {
     practicing = false;
     startButton.innerHTML = "Start Practice";
-    status.innerHTML = "Practice finished.";
+    status.innerHTML = "Practice finished."
     clearInterval(timer);
     practiceHistory.push({ scale: currentScale, time: seconds }); // Store the practice data
     console.log("Practice history: ", practiceHistory); // Log the practice history
@@ -74,6 +74,11 @@ function updateScaleDisplay() { // Updates the scale display based on the select
 async function requestMicrophone() { // Requests microphone access from the user and waits until the user grants or denies access
     try {
         microphoneStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        audioContext = new AudioContext();
+        const source = audioContext.createMediaStreamSource(microphoneStream);
+        analyser = audioContext.createAnalyser();
+        source.connect(analyser);
+        monitorMicrophone(); // Start monitoring the microphone after access is granted
         console.log("Microphone access granted");
         // You can now use the stream for audio processing
     } catch (err) {
@@ -83,6 +88,7 @@ async function requestMicrophone() { // Requests microphone access from the user
 }
 
 function monitorMicrophone() {
+    if (!analyser) return; // If the analyser is not set up, exit the function
     const bufferLength = analyser.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
     analyser.getByteTimeDomainData(dataArray);
