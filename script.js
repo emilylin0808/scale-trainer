@@ -3,6 +3,7 @@ const startButton = document.getElementById('startButton');
 const scaleDisplay = document.getElementById('scaleDisplay');
 const statusDisplay = document.getElementById('status');
 const timerDisplay = document.getElementById('timer');
+const soundLevel = document.getElementById('soundLevel');
 
 console.log("Scale Trainer loaded"); // Debugging statement to make sure JavaScript is connected to the HTML file
 const scales = {
@@ -80,4 +81,21 @@ async function requestMicrophone() { // Requests microphone access from the user
         alert("Microphone access is required to practice. Please allow microphone access.");
     }
 }
+
+function monitorMicrophone() {
+    const bufferLength = analyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+    analyser.getByteTimeDomainData(dataArray);
+    let total = 0;
+
+    for (let i = 0; i < bufferLength; i++) {
+        total += Math.abs(dataArray[i] - 128); // Calculate the deviation from the center value (128)
+    }
+
+    const average = Math.round(total / dataArray.length);
+    soundLevel.innerHTML = "Sound Level: " + average; // Display the average sound level
+
+    requestAnimationFrame(monitorMicrophone); // Continue monitoring the microphone
+}
+
 updateScaleDisplay(); // Initial call to display the default scale when the page loads
