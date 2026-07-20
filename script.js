@@ -4,6 +4,7 @@ const scaleDisplay = document.getElementById('scaleDisplay');
 const status = document.getElementById('status');
 const timerDisplay = document.getElementById('timer');
 const soundLevel = document.getElementById('soundLevel');
+const frequencyDisplay = document.getElementById('frequency'); // New element to display frequency
 
 console.log("Scale Trainer loaded"); // Debugging statement to make sure JavaScript is connected to the HTML file
 const scales = {
