@@ -102,7 +102,7 @@ function monitorMicrophone() {
     const average = Math.round(total / dataArray.length);
     soundLevel.innerHTML = "Sound Level: " + average; // Display the average sound level
 
-    detecFrequency(); // Call the frequency detection function
+    detectFrequency(); // Call the frequency detection function
     requestAnimationFrame(monitorMicrophone); // Continue monitoring the microphone
 }
 
@@ -119,3 +119,4 @@ function detectFrequency() {
 }
 
 updateScaleDisplay(); // Initial call to display the default scale when the page loads
+}
