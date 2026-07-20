@@ -102,7 +102,20 @@ function monitorMicrophone() {
     const average = Math.round(total / dataArray.length);
     soundLevel.innerHTML = "Sound Level: " + average; // Display the average sound level
 
+    detecFrequency(); // Call the frequency detection function
     requestAnimationFrame(monitorMicrophone); // Continue monitoring the microphone
+}
+
+function detectFrequency() {
+    if (!analyser) return; // If the analyser is not set up, exit the function
+
+    const bufferLength = analyser.fftSize;
+    const dataArray = new Float32Array(bufferLength);
+    analyser.getFloatTimeDomainData(dataArray);
+    
+    const autoCorrelate = autoCorrelatePitch(dataArray, audioContext.sampleRate);
+    if (autoCorrelate !== -1) {
+        frequencyDisplay.innerHTML = "Frequency: " + Math.round(autoCorrelate) + " Hz"; // Display the detected frequency
 }
 
 updateScaleDisplay(); // Initial call to display the default scale when the page loads
