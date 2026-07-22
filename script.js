@@ -5,6 +5,8 @@ const status = document.getElementById('status');
 const timerDisplay = document.getElementById('timer');
 const soundLevel = document.getElementById('soundLevel');
 const frequencyDisplay = document.getElementById('frequency'); // New element to display frequency
+
+import { PitchDetector } from "pitchy";
 console.log(PitchDetector); // Debugging statement to make sure PitchDetector is loaded
 
 console.log("Scale Trainer loaded"); // Debugging statement to make sure JavaScript is connected to the HTML file
@@ -28,6 +30,7 @@ let practiceHistory = []; // Array to store previous practice data
 let microphoneStream = null; // Variable to hold the microphone stream
 let audioContext = null; // Variable to hold the AudioContext
 let analyser = null; // Variable to hold the AnalyserNode
+let pitchDetector = null; // Variable to hold the PitchDetector instance
 // ----------------------------------------------Event Listeners------------------------------------------------------------------
 startButton.addEventListener('click', function() { // Starts or stops the practice session when the button is clicked
     //console.log("Start button clicked"); // Debugging statement to make sure the button click is being detected
@@ -79,7 +82,9 @@ async function requestMicrophone() { // Requests microphone access from the user
         audioContext = new AudioContext();
         const source = audioContext.createMediaStreamSource(microphoneStream);
         analyser = audioContext.createAnalyser();
+        analyser.fftSize = 2048; // Set the FFT size for frequency analysis
         source.connect(analyser);
+        pitchDetector = PitchDetector.forFloat32Array(analyser.fftSize); // Initialize the pitch detector with the FFT size
         monitorMicrophone(); // Start monitoring the microphone after access is granted
         console.log("Microphone access granted");
         // You can now use the stream for audio processing
@@ -117,7 +122,7 @@ function detectFrequency() {
     const autoCorrelate = autoCorrelatePitch(dataArray, audioContext.sampleRate);
     if (autoCorrelate !== -1) {
         frequencyDisplay.innerHTML = "Frequency: " + Math.round(autoCorrelate) + " Hz"; // Display the detected frequency
+    }
 }
 
 updateScaleDisplay(); // Initial call to display the default scale when the page loads
-}
