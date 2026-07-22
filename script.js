@@ -47,7 +47,8 @@ startButton.addEventListener('click', function() { // Starts or stops the practi
 scaleSelect.addEventListener("change", updateScaleDisplay); // Updates the scale display when a new scale is selected
 
 // ----------------------------------------------Functions------------------------------------------------------------------
-function startPractice() {
+async function startPractice() {
+    await requestMicrophone(); // Ensure microphone access is requested before starting practice
     practicing = true;
     requestMicrophone(); // gets microphone access from the user when they start practice
     startButton.innerHTML = "Stop Practice";
@@ -88,9 +89,11 @@ async function requestMicrophone() { // Requests microphone access from the user
         monitorMicrophone(); // Start monitoring the microphone after access is granted
         console.log("Microphone access granted");
         // You can now use the stream for audio processing
+        return true;
     } catch (err) {
         console.error("Microphone access denied", err);
         alert("Microphone access is required to practice. Please allow microphone access.");
+        return false;
     }
 }
 
