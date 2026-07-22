@@ -31,6 +31,7 @@ let microphoneStream = null; // Variable to hold the microphone stream
 let audioContext = null; // Variable to hold the AudioContext
 let analyser = null; // Variable to hold the AnalyserNode
 let pitchDetector = null; // Variable to hold the PitchDetector instance
+let currentNote = "";
 // ----------------------------------------------Event Listeners------------------------------------------------------------------
 startButton.addEventListener('click', function() { // Starts or stops the practice session when the button is clicked
     //console.log("Start button clicked"); // Debugging statement to make sure the button click is being detected
@@ -124,6 +125,16 @@ function detectFrequency() {
     if (clarity > 0.9) { // Only display frequency if clarity is above a certain threshold
         frequencyDisplay.innerHTML = "Frequency: " + Math.round(frequency) + " Hz";
     }
+}
+
+function frequencyToNote(frequency) {
+    const noteStrings = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+    const A4 = 440; // Frequency of A4
+    const semitones = 12 * (Math.log2(frequency / A4));
+    const noteIndex = Math.round(semitones) + 69;
+    const note = noteNames[noteIndex % 12];
+    const octave = Math.floor(noteIndex / 12) - 1;
+    return note + octave;
 }
 
 updateScaleDisplay(); // Initial call to display the default scale when the page loads
