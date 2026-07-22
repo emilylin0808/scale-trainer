@@ -113,15 +113,13 @@ function monitorMicrophone() {
 }
 
 function detectFrequency() {
-    if (!analyser) return; // If the analyser is not set up, exit the function
-
-    const bufferLength = analyser.fftSize;
-    const dataArray = new Float32Array(bufferLength);
-    analyser.getFloatTimeDomainData(dataArray);
+    if (!pitchDetector || !analyser) return; // If the pitch detector or analyser is not set up, exit the function
+    const input = new Float32Array(analyser.fftSize);
+    analyser.getFloatTimeDomainData(input);
+    const [frequency, clarity] = pitchDetector.findPitch(input, audioContext.sampleRate);
     
-    const autoCorrelate = autoCorrelatePitch(dataArray, audioContext.sampleRate);
-    if (autoCorrelate !== -1) {
-        frequencyDisplay.innerHTML = "Frequency: " + Math.round(autoCorrelate) + " Hz"; // Display the detected frequency
+    if (clarity > 0.9) { // Only display frequency if clarity is above a certain threshold
+        frequencyDisplay.innerHTML = "Frequency: " + Math.round(frequency) + " Hz";
     }
 }
 
