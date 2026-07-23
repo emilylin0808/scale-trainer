@@ -32,7 +32,9 @@ let microphoneStream = null; // Variable to hold the microphone stream
 let audioContext = null; // Variable to hold the AudioContext
 let analyser = null; // Variable to hold the AnalyserNode
 let pitchDetector = null; // Variable to hold the PitchDetector instance
-let currentNote = "";
+let expectedNotes = []; // Array to store the expected notes for the selected scale
+let currentNoteIndex = 0;
+let detectedNotes = []; // Array to store detected notes during practice
 // ----------------------------------------------Event Listeners------------------------------------------------------------------
 startButton.addEventListener('click', function() { // Starts or stops the practice session when the button is clicked
     //console.log("Start button clicked"); // Debugging statement to make sure the button click is being detected
@@ -50,6 +52,10 @@ scaleSelect.addEventListener("change", updateScaleDisplay); // Updates the scale
 
 // ----------------------------------------------Functions------------------------------------------------------------------
 async function startPractice() {
+    expectedNotes = scales[currentScale].compare; // Get the expected notes for the selected scale
+    currentNoteIndex = 0;
+    detectedNotes = []; // Reset detected notes for the new practice session
+    
     await requestMicrophone(); // Ensure microphone access is requested before starting practice
     practicing = true;
     requestMicrophone(); // gets microphone access from the user when they start practice
@@ -75,7 +81,7 @@ function stopPractice() {
 
 function updateScaleDisplay() { // Updates the scale display based on the selected scale
     currentScale = scaleSelect.value;
-    const notes = scales[currentScale];
+    const notes = scales[currentScale].display;
     scaleDisplay.innerHTML = " <strong>" + currentScale + "</strong><br>Notes: " + notes.join(" ");
 }
 
