@@ -32,6 +32,7 @@ let microphoneStream = null; // Variable to hold the microphone stream
 let audioContext = null; // Variable to hold the AudioContext
 let analyser = null; // Variable to hold the AnalyserNode
 let pitchDetector = null; // Variable to hold the PitchDetector instance
+let lastDetectedNote = null; // Variable to hold the last detected note
 let expectedNotes = []; // Array to store the expected notes for the selected scale
 let currentNoteIndex = 0;
 let detectedNotes = []; // Array to store detected notes during practice
@@ -52,6 +53,7 @@ scaleSelect.addEventListener("change", updateScaleDisplay); // Updates the scale
 
 // ----------------------------------------------Functions------------------------------------------------------------------
 async function startPractice() {
+    lastDetectedNote = null; // Reset the last detected note when starting a new practice session
     expectedNotes = scales[currentScale].compare; // Get the expected notes for the selected scale
     currentNoteIndex = 0;
     detectedNotes = []; // Reset detected notes for the new practice session
@@ -131,8 +133,11 @@ function detectFrequency() {
     
     if (clarity > 0.9) { // Only display frequency if clarity is above a certain threshold
         const detectedNote = frequencyToNote(frequency);
-        checkNote(detectedNote.note); // Check if the detected note matches the expected note
-        
+
+        if (detectedNote.note !== lastDetectedNote) { // Only log if the detected note has changed
+            checkNote(detectedNote.note); // Check if the detected note matches the expected note
+            lastDetectedNote = detectedNote.note;
+        }
         frequencyDisplay.innerHTML = "Frequency: " + Math.round(frequency) + " Hz | Note: " + detectedNote.fullName; // Display the detected frequency and corresponding note
     }
 }
