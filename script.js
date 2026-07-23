@@ -123,8 +123,8 @@ function detectFrequency() {
     const [frequency, clarity] = pitchDetector.findPitch(input, audioContext.sampleRate);
     
     if (clarity > 0.9) { // Only display frequency if clarity is above a certain threshold
-        const note = frequencyToNote(frequency);
-        frequencyDisplay.innerHTML = "Frequency: " + Math.round(frequency) + " Hz | Note: " + note; // Display the detected frequency and corresponding note
+        const detectedNote = frequencyToNote(frequency);
+        frequencyDisplay.innerHTML = "Frequency: " + Math.round(frequency) + " Hz | Note: " + detectedNote.fullName; // Display the detected frequency and corresponding note
     }
 }
 
@@ -135,7 +135,7 @@ function frequencyToNote(frequency) {
     const noteIndex = Math.round(semitones) + 69;
     const note = noteStrings[noteIndex % 12];
     const octave = Math.floor(noteIndex / 12) - 1;
-    return note + octave;
+    return {note: note, octave: octave, fullName: note + octave}; // Return an object containing the note and its octave for more detailed information
 }
 
 function normalizeNote(note) { // Changes the note to a standard format for comparison (e.g., "C#" instead of "Db")
