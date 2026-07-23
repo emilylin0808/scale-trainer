@@ -55,7 +55,7 @@ async function startPractice() {
     expectedNotes = scales[currentScale].compare; // Get the expected notes for the selected scale
     currentNoteIndex = 0;
     detectedNotes = []; // Reset detected notes for the new practice session
-    
+
     await requestMicrophone(); // Ensure microphone access is requested before starting practice
     practicing = true;
     requestMicrophone(); // gets microphone access from the user when they start practice
@@ -131,7 +131,25 @@ function detectFrequency() {
     
     if (clarity > 0.9) { // Only display frequency if clarity is above a certain threshold
         const detectedNote = frequencyToNote(frequency);
+        checkNote(detectedNote.note); // Check if the detected note matches the expected note
+        
         frequencyDisplay.innerHTML = "Frequency: " + Math.round(frequency) + " Hz | Note: " + detectedNote.fullName; // Display the detected frequency and corresponding note
+    }
+}
+
+function checkNote(note) {
+    const expectedNote = expectedNotes[currentNoteIndex];
+
+    if (normalizeNote(note) === normalizeNote(expectedNote)) {
+        console.log("Correct note: " + note);
+        detectedNotes.push(note);
+        currentNoteIndex++;
+        if (currentNoteIndex >= expectedNotes.length) {
+            console.log("Scale completed!");
+            status.innerHTML = "Scale completed!";
+        }
+    } else {
+        console.log("Incorrect note: " + note + ". Expected: " + expectedNote);
     }
 }
 
