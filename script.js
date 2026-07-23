@@ -138,4 +138,9 @@ function frequencyToNote(frequency) {
     return note + octave;
 }
 
+function normalizeNote(note) { // Changes the note to a standard format for comparison (e.g., "C#" instead of "Db")
+    const flatToSharp = {"Bb": "A#", "Db": "C#", "Eb": "D#", "Gb": "F#", "Ab": "G#"};
+    return flatToSharp[note] || note;
+}
+
 updateScaleDisplay(); // Initial call to display the default scale when the page loads
