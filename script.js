@@ -10,15 +10,16 @@ import { PitchDetector } from "pitchy";
 console.log(PitchDetector); // Debugging statement to make sure PitchDetector is loaded
 
 console.log("Scale Trainer loaded"); // Debugging statement to make sure JavaScript is connected to the HTML file
+
 const scales = {
-    "C Major": ["C", "D", "E", "F", "G", "A", "B", "C"],
-    "D Major": ["D", "E", "F#", "G", "A", "B", "C#", "D"],
-    "E Major": ["E", "F#", "G#", "A", "B", "C#", "D#", "E"],
-    "F Major": ["F", "G", "A", "Bb", "C", "D", "E", "F"],
-    "G Major": ["G", "A", "B", "C", "D", "E", "F#", "G"],
-    "A Major": ["A", "B", "C#", "D", "E", "F#", "G#", "A"],
-    "B Major": ["B", "C#", "D#", "E", "F#", "G#", "A#", "B"]
-};
+    "C Major": {display: ["C", "D", "E", "F", "G", "A", "B", "C"], compare: ["C", "D", "E", "F", "G", "A", "B", "C"]},
+    "D Major": {display: ["D", "E", "F#", "G", "A", "B", "C#", "D"], compare: ["D", "E", "F#", "G", "A", "B", "C#", "D"]},
+    "E Major": {display: ["E", "F#", "G#", "A", "B", "C#", "D#", "E"], compare: ["E", "F#", "G#", "A", "B", "C#", "D#", "E"]},
+    "F Major": {display: ["F", "G", "A", "Bb", "C", "D", "E", "F"], compare: ["F", "G", "A", "A#", "C", "D", "E", "F"]},
+    "G Major": {display: ["G", "A", "B", "C", "D", "E", "F#", "G"], compare: ["G", "A", "B", "C", "D", "E", "F#", "G"]},
+    "A Major": {display: ["A", "B", "C#", "D", "E", "F#", "G#", "A"], compare: ["A", "B", "C#", "D", "E", "F#", "G#", "A"]},
+    "B Major": {display: ["B", "C#", "D#", "E", "F#", "G#", "A#", "B"], compare: ["B", "C#", "D#", "E", "F#", "G#", "A#", "B"]}
+}
 console.log(scales["C Major"]); // Making sure the scales object is being logged correctly
 
 // ----------------------------------------------Variables------------------------------------------------------------------
